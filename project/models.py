@@ -1,4 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 # Create your models here.
 class Project(models.Model):
@@ -10,6 +15,7 @@ class Project(models.Model):
     description = models.CharField(max_length=200)
     link = models.CharField(max_length=100)
     pub_date = models.DateField(auto_now_add=True)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE,default="" )
 
     def __str__(self):
         return self.title
@@ -46,7 +52,7 @@ class Profile(models.Model):
     '''
     Class that defines Profile attributes
     '''
-    user = models.CharField(max_length=50)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,default="")
     bio  =  models.CharField(max_length=100) 
     contact =  models.CharField(max_length=100)
     profile_pic = models.ImageField(upload_to='project/')
@@ -80,4 +86,12 @@ class Profile(models.Model):
         updated_profile_pic = cls.objects.filter(id=id)
         return updated_profile_pic
 
+    @receiver(post_save, sender=User)
+    def create_profile(sender,instance,created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+    
+    @receiver(post_save,sender=User)
+    def save_profile(sender,instance, **kwargs):
+        instance.profile.save()
 
