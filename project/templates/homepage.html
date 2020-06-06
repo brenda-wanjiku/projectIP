@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'css/base.css'%}">
+{% endblock %}
+
+{% block content%}
+{{block.super}}
+
+{{title}}
+{% endblock %}
