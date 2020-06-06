@@ -4,13 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .forms import EditProfileForm
+from .forms import EditProfileForm, PostProjectForm
 
 
 # Create your views here.
 def homepage(request):
-    title = "Homepage"
-    return render(request,'base.html',{'title': title})
+    projects = Project.objects.all()
+    return render(request,'base.html',{'projects': projects})
 
 
 
@@ -54,3 +54,19 @@ def update_profile(request):
     else:
         form = EditProfileForm()
     return render(request, 'update_profile.html', {"form": form})
+
+
+
+def post_project(request):
+    current_user = request.user
+
+    if request.method == "POST":
+        form = PostProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.profile = request.user
+            project.save()
+        return redirect('homepage')
+    else:
+        form = PostProjectForm()
+    return render(request, 'post_project.html', {"form": form})

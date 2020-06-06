@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'css/base.css'%}">
+{% endblock %}
+
 
 {% block content %}
 {{block.super}}
-<h1>  {{title}} </h1>
+<div class="container text-center" >
+<h1>  Homepage </h1>
+
+{% for project in projects%}
+<h2> {{project.title}}</h2>
+
+{% endfor %}
+</div>
+
+
 {% endblock %}
