@@ -44,6 +44,11 @@ class Project(models.Model):
         updated_link = cls.objects.filter(id=id)
         return updated_link
 
+    @classmethod
+    def search_project(cls,search_term):
+        return User.objects.filter(title__icontains=search_term)
+    
+
 
 
 

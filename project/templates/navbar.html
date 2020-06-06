@@ -9,35 +9,47 @@
 
 <body>
     <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">   </div>
-            <div class="navbar-header">
+        <div class="container-fluid"> </div>
+        <div class="navbar-header">
 
-            </div>
+        </div>
 
-            <div class="navbar-left">
-                <ul id="navbar-list" class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li>
-                        <a class="navbar-brand" href="{% url 'homepage' %}"> Awards</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/accounts/login">Login</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/admin">Admin</a>
-                    </li>
-                    <!---- Adding a search form -->
-                    <div class="  navbar-right">
-
-
+        <div class="navbar-left">
+            <ul id="navbar-list" class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li>
+                    <a class="navbar-brand" href="{% url 'homepage' %}"> Awards</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/accounts/login">Login</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <!---- Adding a search form -->
+                <div class="  navbar-right">
 
 
+
+
+
+                </div>
+        </div>
+        <!---  Search form end -->
+        </div>
+        <div class="navbar-right">
+            <form class="navbar-form" role="search" , action="{% url 'search_project' %}">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Project" name="title">
+                    <div class="input-group-btn">
+                        <button class="btn btn-outline-info" type="submit">Search</button>
 
                     </div>
-            </div>
-            <!---  Search form end -->
-            <!-- Another search form-->
+                </div>
+            </form>
+        </div>
+        <!-- Another search form-->
 
-     
+
     </nav>
 </body>
 
