@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container">
+    <div class="profile">
+        <div class="row">
+            <img src="{{profile.profile_photo.url}}" class="avatar" alt="">
+            <h1>{{profile.user}}</h1>
+
+        </div>
+      
+
+        {% if profile.bio %}
+        <h2>Bio: {{profile.bio}}</h2>
+        <hr>
+        <hr>
+        {% endif %}
+  
+    </div>
+</div>
+{% endblock%}

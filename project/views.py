@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Profile, Project
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 # Create your views here.
@@ -22,3 +24,12 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{'message':message})
+
+
+def profile(request):
+    '''
+    Displays a user's profile
+    '''
+    current_user = request.user
+    profile = Profile.objects.get(user =current_user)
+    return render(request, 'profile.html', {"profile" : profile} )
