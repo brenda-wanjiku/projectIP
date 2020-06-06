@@ -4,11 +4,12 @@
 
 {% block styles %}
 {% bootstrap_css %}
-<link rel="stylesheet" href="{% static 'css/base.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
 {% endblock %}
 
 {% block content%}
 {{block.super}}
-
-{{title}}
+<div class="container">
+<h1>{{title}}</h1>
+</div>
 {% endblock %}
