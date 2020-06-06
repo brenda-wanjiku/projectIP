@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Profile, Project
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
+from .forms import EditProfileForm
 
 
 # Create your views here.
@@ -33,3 +34,23 @@ def profile(request):
     current_user = request.user
     profile = Profile.objects.get(user =current_user)
     return render(request, 'profile.html', {"profile" : profile} )
+
+
+def update_profile(request):
+    current_user = request.user
+
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile_pic = form.cleaned_data['profile_pic']
+            bio  = form.cleaned_data['bio']
+            contact = form.cleaned_data['contact']
+
+            updated_profile = Profile.objects.get(user= current_user)
+            updated_profile.profile_pic = profile_pic
+            updated_profile.bio = bio
+            updated_profile.save()
+        return redirect('profile')
+    else:
+        form = EditProfileForm()
+    return render(request, 'update_profile.html', {"form": form})
