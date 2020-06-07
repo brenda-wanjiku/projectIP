@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Profile, Project
+from .models import Profile, Project, Rating
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .forms import EditProfileForm, PostProjectForm
+from .forms import EditProfileForm, PostProjectForm, RateProjectForm
 
 
 # Create your views here.
@@ -77,4 +77,27 @@ def post_project(request):
 
 def view_project(request,id):
     project = Project.objects.get(id=id)
-    return render(request, 'project.html', {'project': project})
+    ratings = Rating.objects.filter(project=project).all()
+    count = ratings.count()
+    return render(request, 'project.html', {'project': project, "ratings": ratings})
+
+
+
+def rate_project(request,id):
+    project = Project.objects.get(pk = id)
+    current_user = request.user
+    if request.method == "POST":
+        form = RateProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            design = form.cleaned_data['design']
+            usability = form.cleaned_data['usability']
+            content = form.cleaned_data['content']
+            rate  = Rating(design=design, usability=usability, content=content,project=project, user=current_user)
+            project.save()
+            rate.save()
+
+            return redirect('view_project')
+    else:
+        form = RateProjectForm()
+
+    return render(request, 'rating.html', {"form": form})

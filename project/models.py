@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -104,4 +104,21 @@ class Profile(models.Model):
     @receiver(post_save,sender=User)
     def save_profile(sender,instance, **kwargs):
         instance.profile.save()
+
+class Rating(models.Model):
+    design = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True)
+    usability =models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True)
+    content = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
+    def __int__(self):
+        return self.design
+
+    def save_rating(self):
+        self.save()
+
+    def delete_rating(self):
+        self.delete()
 
