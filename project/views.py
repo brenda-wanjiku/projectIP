@@ -10,14 +10,16 @@ from .forms import EditProfileForm, PostProjectForm
 # Create your views here.
 def homepage(request):
     projects = Project.objects.all()
-    return render(request,'base.html',{'projects': projects})
+    return render(request,'homepage.html',{'projects': projects})
 
 
 
 def search_results(request):
     if 'title' in request.GET and request.GET['title']:
         searched_term = request.GET.get('title')
-        titles = Project.search_project(searched_term)
+        titles = Project.objects.filter(title__icontains=searched_term)
+        print('string'*20)
+        print(titles)
         message = f"{searched_term}"
 
         return render(request, 'search.html', {'message':message,'titles':titles})

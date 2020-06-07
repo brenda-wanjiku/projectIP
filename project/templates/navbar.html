@@ -47,7 +47,7 @@
         <!---  Search form end -->
         </div>
         <div class="navbar-right">
-            <form class="navbar-form" role="search" , action="{% url 'search_project' %}">
+            <form method="GET" class="navbar-form" role="search" , action="{% url 'search_project' %}">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Project" name="title">
                     <div class="input-group-btn">
