@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+            <div>
+                <img src="{{project.image.url}}" alt="img">
+                <div>
+                    <p style="font-size: 3vh;"><b>{{project.title}}</b></p>
+                    <p><b>Live link:</b> &nbsp; <a href="{{project.link}}"
+                            target="_blank">{{project.live_link}}</a> </p>
+                    <p><b>Description</b></p>
+                    <ul>
+                        <li class="list-group-item">{{project.description}}</li>
+                    </ul>
+                    <p>Posted {{project.pub_date|timesince}} ago</p>
+                    {% if project.user_profile.profile_pic.url %}
+                    <img src="{{project.profile.profile_pic.url}}" alt="img"> &nbsp;
+                    {% else %}
+                    <img src="{% static 'images/user.png' %}" alt="loading..."> &nbsp;
+                    {% endif %}
+                    <b>By {{project.profile.username}}</b>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+
+{% endblock %}

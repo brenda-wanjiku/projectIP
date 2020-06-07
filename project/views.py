@@ -72,3 +72,9 @@ def post_project(request):
     else:
         form = PostProjectForm()
     return render(request, 'post_project.html', {"form": form})
+
+
+
+def view_project(request,id):
+    project = Project.objects.get(id=id)
+    return render(request, 'project.html', {'project': project})
