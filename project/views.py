@@ -61,7 +61,7 @@ def update_profile(request):
     return render(request, 'update_profile.html', {"form": form})
 
 
-
+@login_required(login_url="/accounts/login/")
 def post_project(request):
     current_user = request.user
 
@@ -85,7 +85,7 @@ def view_project(request,id):
     return render(request, 'project.html', {'project': project, "ratings": ratings})
 
 
-
+@login_required(login_url="/accounts/login/")
 def rate_project(request,id):
     project = Project.objects.get(pk = id)
     current_user = request.user
