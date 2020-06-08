@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import dj_database_url
 from decouple import config,Csv
+import cloudinary
 
 
 
@@ -36,6 +37,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'cloudinary',
     'project.apps.ProjectConfig',
     'rest_framework',
     'django.contrib.admin',
@@ -153,3 +155,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
+cloudinary.config( 
+  cloud_name = config('CLOUD_NAME'),
+  api_key = config('CLOUDINARY_API_KEY'), 
+  api_secret = config('CLOUDINARY_API_SECRET'),
+)

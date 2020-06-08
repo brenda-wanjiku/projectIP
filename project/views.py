@@ -8,7 +8,7 @@ from .forms import EditProfileForm, PostProjectForm, RateProjectForm
 from rest_framework.views import APIView
 from .serializer import ProjectSerializer,ProfileSerializer
 from rest_framework.response import Response
-
+from .permissions import IsAuthenticated
 
 # Create your views here.
 def homepage(request):
@@ -80,8 +80,8 @@ def post_project(request):
 
 def view_project(request,id):
     project = Project.objects.get(id=id)
-    ratings = Rating.objects.filter(project=project).all()
-    count = ratings.count()
+    ratings = Rating.objects.filter(project=project)
+    
     return render(request, 'project.html', {'project': project, "ratings": ratings})
 
 
@@ -96,24 +96,28 @@ def rate_project(request,id):
             usability = form.cleaned_data['usability']
             content = form.cleaned_data['content']
             rate  = Rating(design=design, usability=usability, content=content,project=project, user=current_user)
-            project.save()
+            rate.save()
+            avg = rate.average()
+            rate.average = avg
             rate.save()
 
-            return redirect('view_project')
+            return redirect(view_project, id=project.id)
     else:
         form = RateProjectForm()
 
-    return render(request, 'rating.html', {"form": form})
+    return render(request, 'rating.html', {"form": form, 'project': project})
 
 class ProfileView(APIView):
+    permission_classes = (IsAuthenticated)
     def get(self,request,format = None):
         profiles =  Profile.objects.all()
         serializer = ProfileSerializer(profiles, many=True)
-        return Response(serializers.data)  
+        return Response(serializer.data)  
 
 
 
 class ProjectView(APIView):
+    permission_classes = (IsAuthenticated)
     def get(self, request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)

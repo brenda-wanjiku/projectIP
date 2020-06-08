@@ -26,15 +26,20 @@
                     <img src="{% static 'images/user.png' %}" alt="loading..."> &nbsp;
                     {% endif %}
                     <b>By {{project.profile.username}}</b>
+
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-
+            
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
+            <a href="{% url 'rate_project' project.id %}"> <h1>Rate: </h1></a>
+            {% for rate in ratings %}
+            <h2> Average: {{rate.average}}</h2>
+            {% endfor %}
 
         </div>
         <div class="col-md-8">
