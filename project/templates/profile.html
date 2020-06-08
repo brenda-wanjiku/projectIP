@@ -1,21 +1,24 @@
 {% extends 'base.html'%}
 {% block content %}
+
 <div class="container">
     <div class="profile">
-        <div class="row">
-            <img src="{{profile.profile_photo.url}}" class="avatar" alt="">
-            <h1>{{profile.user}}</h1>
-            <h2>{{profile.contact}}</h2>
-            <img src="{{profile.profile_pic.url}}">
-
-        </div>
+        <img src="{{profile.profile_pic.url}}" width="300px">
+        <h2>{{profile.user}}</h2>
+        <h3>{{profile.contact}}</h3>
       
+        <a class="nav-link" href="{% url 'post_project' %}"><button type="button" class="btn btn-success">Post
+                project</button></a>
+        <a class="nav-link" href="{% url 'update_profile' %}"><button type="button" class="btn btn-success">Update
+                Profile</button></a>
+
 
         {% if profile.bio %}
-        <h2>Bio: {{profile.bio}}</h2>
+        <h3>Bio: {{profile.bio}}</h3>
         <hr>
         <hr>
         {% endif %}
+
   
     </div>
 </div>

@@ -5,13 +5,14 @@
 {% block styles %}
 {% bootstrap_css %}
 <link rel="stylesheet" href="{% static 'css/base.css'%}">
+<link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
 {% endblock %}
 
 
 {% block content %}
 {{block.super}}
 <div class="container text-center">
-    <h1> nozzby </h1>
+    <h1> <span style="font-family: 'Covered By Your Grace', cursive; font-size: 180px; color:green">A</span>wards </h1>
     <h2>Design. Usability. Content. </h2>
     <hr>
     <div class="row">
@@ -19,9 +20,8 @@
     <div class="col-md-6" width="100px">
         <div class="card card bg-light text-dark">
             <div class="card-header ">
-                <div class="card">
+                
                     <h3 class= "text-center">{{project.title}}</h3>
-                </div>
                 <div class="card-body">
                     <p class="text-center">{{project.description}}</p>
                 </div>
@@ -37,10 +37,6 @@
 
     {% endfor %}
 </div>
-<style>
-img:hover {
-  transform: scaleX(-1);
-}
-</style>
+
 
 {% endblock %}

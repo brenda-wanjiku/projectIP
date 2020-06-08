@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Upload Image</title>
+    <title>Post project</title>
     {{form.media}}
 
     {% block styles %}
@@ -17,7 +17,7 @@
 
 <body>
     <div class="container">
-        <h2> Upload an Image</h2>
+        <h2> Post project</h2>
         <form action="{%url 'post_project'%}" method="post" enctype="multipart/form-data">
             {%csrf_token%}
 

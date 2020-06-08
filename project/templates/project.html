@@ -11,39 +11,46 @@
         <div class="col-md-8">
             <div>
                 <img src="{{project.image.url}}" alt="img">
-                <div>
-                    <p style="font-size: 3vh;"><b>{{project.title}}</b></p>
-                    <p><b>Live link:</b> &nbsp; <a href="{{project.link}}"
-                            target="_blank">{{project.live_link}}</a> </p>
-                    <p><b>Description</b></p>
-                    <ul>
-                        <li class="list-group-item">{{project.description}}</li>
-                    </ul>
-                    <p>Posted {{project.pub_date|timesince}} ago</p>
-                    {% if project.user_profile.profile_pic.url %}
-                    <img src="{{project.profile.profile_pic.url}}" alt="img"> &nbsp;
-                    {% else %}
-                    <img src="{% static 'images/user.png' %}" alt="loading..."> &nbsp;
-                    {% endif %}
-                    <b>By {{project.profile.username}}</b>
+                <div class="list-group-item">
+                    <p style="font-size:60px;"><b>{{project.title}}</b></p>
+                    <p style="font-size:30px;"><b>Live link:</b> &nbsp; <a href="{{project.link}}"
+                            target="_blank">{{project.link}}</a> </p>
+                    <p style="font-size:30px;">{{project.description}}<p>
+                    <p  style="font-size:20px;">Posted {{project.pub_date|timesince}} ago</p>
+                    <b style="font-size:20px;">By {{project.profile.username}}</b>
+                    <hr>
+                    <hr>
+                    <a href="{% url 'rate_project' project.id %}">
+                        <button type="button" class="btn btn-success">Rate Project</button>
+                     </a>
 
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            
+
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
-            <a href="{% url 'rate_project' project.id %}"> <h1>Rate: </h1></a>
+        <div class="col-md-6"style="text-align: center; margin-left:250px">
+            {% if ratings%}
             {% for rate in ratings %}
-            <h2> Average: {{rate.average}}</h2>
+            <div class="card">
+            <h2> {{rate.user}}:</h2> 
+            <h2>AVG {{rate.average | floatformat:2 }}</h2>
+            <h2> design: {{rate.design}} ||content: {{rate.content}}|| usability: {{rate.usability}}</h2>
+            <h2> </h2>
+            <h2> </h2>
+           
+            </div>
             {% endfor %}
+            {% else %}
+                    <p>No ratings available</p>
+                {% endif %}
 
         </div>
         <div class="col-md-8">
         </div>
     </div>
 
-{% endblock %}
+    {% endblock %}
