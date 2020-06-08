@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .forms import EditProfileForm, PostProjectForm, RateProjectForm
+from rest_framework.views import APIView
+from .serializer import ProjectSerializer,ProfileSerializer
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -101,3 +104,17 @@ def rate_project(request,id):
         form = RateProjectForm()
 
     return render(request, 'rating.html', {"form": form})
+
+class ProfileView(APIView):
+    def get(self,request,format = None):
+        profiles =  Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
+        return Response(serializers.data)  
+
+
+
+class ProjectView(APIView):
+    def get(self, request):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects, many=True)
+        return Response({"projects": serializer.data})

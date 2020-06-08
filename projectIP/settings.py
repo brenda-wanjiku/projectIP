@@ -37,6 +37,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 INSTALLED_APPS = [
     'bootstrap4',
     'project.apps.ProjectConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
