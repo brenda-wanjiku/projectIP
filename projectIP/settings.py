@@ -14,6 +14,7 @@ import os
 import dj_database_url
 from decouple import config,Csv
 import cloudinary
+import django_heroku
 
 
 
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'projectIP.urls'
@@ -161,3 +163,6 @@ cloudinary.config(
   api_key = config('CLOUDINARY_API_KEY'), 
   api_secret = config('CLOUDINARY_API_SECRET'),
 )
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
