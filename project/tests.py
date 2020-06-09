@@ -85,6 +85,13 @@ def setUp(self)
         updated_project = Project.update_project_image(self.new_project.id, 'test2.jpg')
         self.assertTrue(updated_project.image != self.new_project.image)
 
+    def test_search_project(self):
+        searched_project = Project.search_project_title("test")
+        self.assertTrue(len(searched_projects)==1)
+
+    def test_get_project_by_id(self):
+        project = Project.test_get_project_by_id(self.new_project.id)
+        self.assertTrue(len(project)==1)
     
 class ProfileTestClass(TestCase):
 
@@ -131,7 +138,7 @@ class RatingTestClass(TestCase):
         self.new_project.save()
 
         # creating a new rating for project and saving it
-        self.new_rating = Rating(design=4, usability=7, content=4, project=self.new_project, user=self.new_user)
+        self.new_rating = Rating(design=4, usability=7, content=4, average=7.5, project=self.new_project, user=self.new_user)
         self.new_rating.save()
 
     def tearDown(self) -> None:
@@ -171,3 +178,6 @@ class RatingTestClass(TestCase):
         self.new_rating.save_rating()
         updated_rating = Rating.update_content_rating(self.new_project, 6)
         self.assertEqual(updated_rating.content, 6)
+
+    def test_average(self):
+        self.assertEqual(self.new_rating.average,7.5)
