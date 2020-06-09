@@ -86,4 +86,4 @@ If you need any clarifications or have feedback on this project , contact the au
 
 
 ## Licence
-This project is under the [MIT]https://raw.githubusercontent.com/brenda-wanjiku/projectIP/master/LICENSE licence
+This project is under the [MIT] licence https://raw.githubusercontent.com/brenda-wanjiku/projectIP/master/LICENSE 
