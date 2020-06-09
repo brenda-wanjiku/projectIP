@@ -63,13 +63,13 @@ The user will require git, django, postgres and python3.8 installed in their mac
 
 
 
-# Live Site
+## Live Site
 * Can be accessed here https://brenda-project.herokuapp.com/
 
 * To log in as an admin you can use the following credentials:
       username : brendawanjiku29 and password: brenda29
 
-# API calls
+## API calls
 1. Use the following api end point to generate a token
     
     *Note all end points require authenticated users to access*
@@ -81,7 +81,7 @@ The user will require git, django, postgres and python3.8 installed in their mac
     * To get projects
         GET: `http://127.0.0.1:8000/api/projects`
 
-# Author's Contact
+## Author's Contact
 If you need any clarifications or have feedback on this project , contact the author at brendawanjiku@gmail.com
 
 
